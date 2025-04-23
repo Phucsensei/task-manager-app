@@ -1,10 +1,9 @@
-import './App.css'
+import React from 'react';
+import MainLayout from './layout/MainLayout';
 
 function App() {
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold text-gray-800">Task Manager App</h1>
-    </div>
+    <MainLayout />
   );
 }
 

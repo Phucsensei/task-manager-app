@@ -14,10 +14,10 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
     return (
-        <header className="fixed top-0 left-0 w-full bg-white/20 backdrop-blur-md shadow-xl z-50 px-4 sm:px-6 py-3.5 border-b border-white/10">
+        <header className=" top-0 left-0 w-full bg-white/20 backdrop-blur-md shadow-xl z-50 px-4 sm:px-6 py-3.5 border-b border-white/10">
             <div className="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto gap-3 md:gap-6">
                 {/* Left Section */}
-                <div className="flex items-center justify-between w-full md:w-auto ml-[-45px]">
+                <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center gap-3">
                         <button
                             onClick={toggleSidebar}

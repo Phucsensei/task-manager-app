@@ -13,7 +13,33 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
             className={`fixed top-0 left-0 z-40 h-screen bg-white/70 backdrop-blur-lg shadow-xl transition-transform duration-300 ease-in-out w-72
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static border-r border-white/20`}
         >
-            <div className="flex flex-col h-full pt-20 pb-8">
+            <div className="flex flex-col h-full pt-5 pb-4">
+                <div className="px-4 mb-6">
+                    <div className="flex items-center gap-3 group">
+                        {/* User Avatar */}
+                        <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm cursor-pointer hover:scale-105 transition-transform">
+                            <img
+                                src="https://static.vecteezy.com/system/resources/previews/025/277/267/non_2x/happy-indian-man-semi-flat-character-head-editable-cartoon-avatar-icon-man-with-beard-and-curly-hair-face-emotion-colorful-spot-illustration-for-web-graphic-design-animation-vector.jpg"
+                                alt="User avatar"
+                                className="w-full h-full object-cover"
+                            />
+                            {/* Online Status */}
+                            <div className="absolute bottom-[2px] right-[5px] w-2.5 h-2.5 bg-green-500 rounded-full border border-white"></div>
+                        </div>
+
+                        {/* User Info */}
+                        <div className="flex flex-col flex-1 min-w-0">
+                            <h2 className="text-sm font-semibold text-gray-800 truncate">
+                                Trần Chí Phúc
+                            </h2>
+                            <p className="text-xs text-gray-500 truncate">
+                                phuctc6776@gmail.com
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div className='border-t border-gray-300 mb-4'></div>
                 <nav className="flex-1 flex flex-col gap-1 px-2 overflow-y-auto">
                     {/* Quick Access */}
                     <MenuSection title="QUICK ACCESS">
@@ -59,25 +85,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                             danger
                         />
                     </MenuSection>
-
-                    {/* Workspace Status */}
-                    <div className="mt-auto px-4 pt-4 border-t border-white/10">
-                        <div className="text-xs text-gray-600 space-y-1">
-                            <div className="flex justify-between">
-                                <span>Storage</span>
-                                <span>24.5G/50G</span>
-                            </div>
-                            <div className="h-1 bg-gray-200 rounded-full">
-                                <div
-                                    className="h-full bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"
-                                    style={{ width: '65%' }}
-                                />
-                            </div>
-                            <div className="text-[0.7rem] text-gray-500">
-                                Last sync: 2h ago
-                            </div>
-                        </div>
-                    </div>
                 </nav>
             </div>
         </aside>

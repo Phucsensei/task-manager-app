@@ -25,6 +25,7 @@ const MainLayout: React.FC = () => {
                 {/* Header */}
                 <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
+
                 {/* Main content - Đã comment nhưng giữ lại để bạn có thể bỏ comment khi cần */}
                 {/* <main className="mt-16 p-6 overflow-y-auto min-h-[calc(100vh-4rem)]">
                     <div className="max-w-7xl mx-auto">

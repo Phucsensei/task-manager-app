@@ -6,6 +6,8 @@ import {
     IoGridOutline
 } from 'react-icons/io5';
 import { FiMenu, FiChevronLeft } from 'react-icons/fi';
+import BaseButton from './common/button';
+import BaseSelect from './common/select';
 
 interface HeaderProps {
     toggleSidebar: () => void;
@@ -13,9 +15,21 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
+    const [selectedValue, setSelectedValue] = React.useState<string>("All Tasks");
+
+    const handleSelectChange = (newValue: string) => {
+        setSelectedValue(newValue);
+    };
+
+    const taskStatusOptions = [
+        "All Tasks",
+        "Completed Tasks",
+        "Pending Tasks",
+    ];
+
     return (
-        <header className=" top-0 left-0 w-full bg-white/20 backdrop-blur-md shadow-xl z-50 px-4 sm:px-6 py-3.5 border-b border-white/10">
-            <div className="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto gap-3 md:gap-6">
+        <header className="top-0 left-0 w-full bg-white/20 backdrop-blur-md shadow-xl z-50 px-4 sm:px-6 py-3.5 border-b border-white/10">
+            <div className="flex flex-col md:flex-row justify-between items-center max-w-full mx-auto gap-3 md:gap-6">
                 {/* Left Section */}
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center gap-3">
@@ -34,8 +48,9 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                         </div>
                     </div>
 
+                    {/* Mobile Create Task Button */}
                     <button className="md:hidden bg-white/90 text-gray-800 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-white transition-colors whitespace-nowrap shadow-sm">
-                        Login
+                        Create Task
                     </button>
                 </div>
 
@@ -71,9 +86,16 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
 
                     {/* Desktop Buttons */}
                     <div className="hidden md:flex items-center gap-4">
-                        <button className="bg-white/90 text-gray-800 px-4 py-2 rounded-md text-sm font-medium hover:bg-white transition-colors whitespace-nowrap shadow-sm">
-                            Login
-                        </button>
+                        <BaseButton>
+                            Create Task
+                        </BaseButton>
+
+                        <BaseSelect
+                            options={taskStatusOptions}
+                            value={selectedValue}
+                            onChange={handleSelectChange}
+                            label="Task Status"
+                        />
 
                         {/* Icons Group */}
                         <div className="flex items-center gap-4">

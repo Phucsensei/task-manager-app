@@ -21,7 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                             <img
                                 src="https://static.vecteezy.com/system/resources/previews/025/277/267/non_2x/happy-indian-man-semi-flat-character-head-editable-cartoon-avatar-icon-man-with-beard-and-curly-hair-face-emotion-colorful-spot-illustration-for-web-graphic-design-animation-vector.jpg"
                                 alt="User avatar"
-                                className="w-full h-full object-cover"
+                                className="w-full h-full"
                             />
                             {/* Online Status */}
                             <div className="absolute bottom-[2px] right-[5px] w-2.5 h-2.5 bg-green-500 rounded-full border border-white"></div>

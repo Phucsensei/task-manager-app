@@ -8,6 +8,7 @@ import {
 import { FiMenu, FiChevronLeft } from 'react-icons/fi';
 import BaseButton from './common/button';
 import BaseSelect from './common/select';
+import ModalTask from '../feature/Modal/ModalTask';
 
 interface HeaderProps {
     toggleSidebar: () => void;
@@ -16,6 +17,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
     const [selectedValue, setSelectedValue] = React.useState<string>("All Tasks");
+    const [openModal, setOpenModal] = React.useState(false); // Add state for modal
 
     const handleSelectChange = (newValue: string) => {
         setSelectedValue(newValue);
@@ -26,6 +28,14 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
         "Completed Tasks",
         "Pending Tasks",
     ];
+
+    const handleOpenModal = () => {
+        setOpenModal(true);  // Open Modal
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false); // Close Modal
+    };
 
     return (
         <header className="top-0 left-0 w-full bg-white/20 backdrop-blur-md shadow-xl z-50 px-4 sm:px-6 py-3.5 border-b border-white/10">
@@ -49,7 +59,10 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                     </div>
 
                     {/* Mobile Create Task Button */}
-                    <button className="md:hidden bg-white/90 text-gray-800 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-white transition-colors whitespace-nowrap shadow-sm">
+                    <button
+                        className="md:hidden bg-white/90 text-gray-800 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-white transition-colors whitespace-nowrap shadow-sm"
+                        onClick={handleOpenModal} // Open modal on click
+                    >
                         Create Task
                     </button>
                 </div>
@@ -86,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
 
                     {/* Desktop Buttons */}
                     <div className="hidden md:flex items-center gap-4">
-                        <BaseButton>
+                        <BaseButton onClick={handleOpenModal}> {/* Open modal when clicked */}
                             Create Task
                         </BaseButton>
 
@@ -117,6 +130,9 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                     </div>
                 </div>
             </div>
+
+            {/* Render the ModalTask component */}
+            <ModalTask open={openModal} onClose={handleCloseModal} />
         </header>
     );
 };

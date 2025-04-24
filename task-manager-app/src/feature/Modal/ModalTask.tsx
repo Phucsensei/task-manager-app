@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Close } from '@mui/icons-material';
 import { Modal, Box } from '@mui/material';
 import { useForm } from 'react-hook-form';
@@ -10,6 +10,8 @@ import BaseButton from '../../components/common/button';
 interface ModalTaskProps {
     open: boolean;
     onClose: () => void;
+    isEdit: boolean;
+    task?: any;
 }
 
 const validationSchema = Yup.object({
@@ -19,13 +21,24 @@ const validationSchema = Yup.object({
     description: Yup.string().optional(),
 });
 
-const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose }) => {
-    const { control, handleSubmit, formState: { errors } } = useForm({
+const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) => {
+    const { control, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(validationSchema),
     });
 
+    useEffect(() => {
+        if (isEdit && task) {
+            const { text, date, time, description } = task;
+            setValue('title', text);
+            setValue('date', date);
+            setValue('time', time);
+            setValue('description', description);
+        }
+    }, [isEdit, task, setValue]);
+
     const onSubmit = (data: any) => {
-        console.log(data);
+        console.log(isEdit ? 'Editing Task:' : 'Adding Task:', data);
+        onClose();
     };
 
     return (
@@ -54,7 +67,7 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose }) => {
                     <Close className="w-6 h-6" />
                 </button>
 
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">Add a Task</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{isEdit ? 'Edit Task' : 'Add Task'}</h2>
 
                 <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                     <BaseInput
@@ -97,7 +110,7 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose }) => {
                         type="submit"
                         className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-200 transform hover:scale-[1.01]"
                     >
-                        Add Task
+                        {isEdit ? 'Edit Task' : 'Add Task'}
                     </BaseButton>
                 </form>
             </Box>

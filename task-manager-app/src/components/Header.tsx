@@ -126,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                 </div>
             </div>
 
-            <ModalTask open={openModal} onClose={handleCloseModal} />
+            <ModalTask open={openModal} onClose={handleCloseModal} isEdit={false} />
         </header>
     );
 };

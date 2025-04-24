@@ -15,27 +15,23 @@ interface InputProps {
     error?: boolean;
 }
 
-const BaseInput: React.FC<InputProps> = ({ label, control, name, helperText, error, ...props }) => {
-    return (
-        <div className="w-full">
-            <Controller
-                name={name}
-                control={control}
-                render={({ field }) => (
-                    <TextField
-                        {...field}
-                        label={label}
-                        variant="outlined"
-                        fullWidth
-                        error={error}
-                        helperText={error ? helperText : ''}
-                        InputLabelProps={{ shrink: true }}
-                        {...props}
-                    />
-                )}
+const BaseInput: React.FC<InputProps> = ({ label, control, name, error, helperText, ...props }) => (
+    <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+            <TextField
+                {...field}
+                label={label}
+                variant="outlined"
+                fullWidth
+                error={error}
+                helperText={error ? helperText : ''}
+                InputLabelProps={{ shrink: true }}
+                {...props}
             />
-        </div>
-    );
-};
+        )}
+    />
+);
 
 export default BaseInput;

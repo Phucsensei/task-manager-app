@@ -17,7 +17,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
     const [selectedValue, setSelectedValue] = React.useState<string>("All Tasks");
-    const [openModal, setOpenModal] = React.useState(false); // Add state for modal
+    const [openModal, setOpenModal] = React.useState(false);
 
     const handleSelectChange = (newValue: string) => {
         setSelectedValue(newValue);
@@ -30,17 +30,16 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
     ];
 
     const handleOpenModal = () => {
-        setOpenModal(true);  // Open Modal
+        setOpenModal(true);
     };
 
     const handleCloseModal = () => {
-        setOpenModal(false); // Close Modal
+        setOpenModal(false);
     };
 
     return (
         <header className="top-0 left-0 w-full bg-white/20 backdrop-blur-md shadow-xl z-50 px-4 sm:px-6 py-3.5 border-b border-white/10">
             <div className="flex flex-col md:flex-row justify-between items-center max-w-full mx-auto gap-3 md:gap-6">
-                {/* Left Section */}
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center gap-3">
                         <button
@@ -58,16 +57,14 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                         </div>
                     </div>
 
-                    {/* Mobile Create Task Button */}
                     <button
                         className="md:hidden bg-white/90 text-gray-800 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-white transition-colors whitespace-nowrap shadow-sm"
-                        onClick={handleOpenModal} // Open modal on click
+                        onClick={handleOpenModal}
                     >
                         Create Task
                     </button>
                 </div>
 
-                {/* Middle Section - Navigation */}
                 <nav className="hidden lg:flex items-center gap-5 ml-2">
                     <a href="#" className="text-gray-800 hover:text-gray-900 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-white/20">
                         Workspaces
@@ -97,9 +94,8 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                         </div>
                     </div>
 
-                    {/* Desktop Buttons */}
                     <div className="hidden md:flex items-center gap-4">
-                        <BaseButton onClick={handleOpenModal}> {/* Open modal when clicked */}
+                        <BaseButton onClick={handleOpenModal}>
                             Create Task
                         </BaseButton>
 
@@ -110,7 +106,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                             label="Task Status"
                         />
 
-                        {/* Icons Group */}
                         <div className="flex items-center gap-4">
                             <div className="relative">
                                 <IoNotificationsOutline className="w-6 h-6 text-gray-800 hover:text-gray-900 cursor-pointer transition-colors" />
@@ -131,7 +126,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                 </div>
             </div>
 
-            {/* Render the ModalTask component */}
             <ModalTask open={openModal} onClose={handleCloseModal} />
         </header>
     );

@@ -4,7 +4,6 @@ import { AiFillProject } from 'react-icons/ai';
 
 interface SidebarProps {
     isOpen: boolean;
-    toggleSidebar: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
@@ -16,18 +15,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
             <div className="flex flex-col h-full pt-5 pb-4">
                 <div className="px-4 mb-6">
                     <div className="flex items-center gap-3 group">
-                        {/* User Avatar */}
                         <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm cursor-pointer hover:scale-105 transition-transform">
                             <img
                                 src="https://static.vecteezy.com/system/resources/previews/025/277/267/non_2x/happy-indian-man-semi-flat-character-head-editable-cartoon-avatar-icon-man-with-beard-and-curly-hair-face-emotion-colorful-spot-illustration-for-web-graphic-design-animation-vector.jpg"
                                 alt="User avatar"
                                 className="w-full h-full"
                             />
-                            {/* Online Status */}
                             <div className="absolute bottom-[2px] right-[5px] w-2.5 h-2.5 bg-green-500 rounded-full border border-white"></div>
                         </div>
 
-                        {/* User Info */}
                         <div className="flex flex-col flex-1 min-w-0">
                             <h2 className="text-sm font-semibold text-gray-800 truncate">
                                 Trần Chí Phúc
@@ -41,7 +37,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                 </div>
                 <div className='border-t border-gray-300 mb-4'></div>
                 <nav className="flex-1 flex flex-col gap-1 px-2 overflow-y-auto">
-                    {/* Quick Access */}
                     <MenuSection title="QUICK ACCESS">
                         <MenuItem
                             icon={<AiFillProject className="text-blue-600" />}
@@ -57,7 +52,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                         />
                     </MenuSection>
 
-                    {/* Task Organization */}
                     <MenuSection title="ORGANIZATION">
                         <MenuItem
                             icon={<FiUsers className="text-purple-600" />}
@@ -69,7 +63,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                         />
                     </MenuSection>
 
-                    {/* Task Views */}
                     <MenuSection title="TASK VIEWS">
                         <MenuItem
                             icon={<FiArchive className="text-gray-600" />}
@@ -77,7 +70,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                         />
                     </MenuSection>
 
-                    {/* System */}
                     <MenuSection title="SYSTEM">
                         <MenuItem
                             icon={<FiLogOut className="text-red-600" />}

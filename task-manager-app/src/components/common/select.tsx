@@ -32,7 +32,7 @@ const BaseSelect: React.FC<CustomSelectProps> = ({
                 value={value}
                 label={label}
                 onChange={(e) => onChange(e.target.value)}
-                style={{ height: '100%' }} // Ensure Select fills FormControl height
+                style={{ height: '100%' }}
             >
                 {options.map((option) => (
                     <MenuItem key={option} value={option}>

@@ -7,8 +7,8 @@ interface CustomButtonProps {
     color?: OverridableStringUnion<"inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning", ButtonPropsColorOverrides>;
     onClick?: () => void;
     children: React.ReactNode;
-    type?: "button" | "submit" | "reset"; // Add the type property
-    className?: string; // Add the className property
+    type?: "button" | "submit" | "reset";
+    className?: string;
 }
 
 const BaseButton: React.FC<CustomButtonProps> = ({ variant = 'contained', color = 'primary', onClick, children, type, className }) => {

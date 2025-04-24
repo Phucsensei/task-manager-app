@@ -1,9 +1,12 @@
 import React from 'react';
-import MainLayout from './layout/MainLayout';
+import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
+import AppRouter from './router/AppRouter'; // Import AppRouter
 
 function App() {
   return (
-    <MainLayout />
+    <BrowserRouter>  {/* Bọc toàn bộ ứng dụng trong BrowserRouter */}
+      <AppRouter />
+    </BrowserRouter>
   );
 }
 

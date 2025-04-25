@@ -36,48 +36,43 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
         resolver: yupResolver(validationSchema),
     });
 
-    // Reset form when modal is closed
     useEffect(() => {
-        if (!open) {
-            reset(); // Reset form when modal is closed
-        }
+        if (!open) reset();
     }, [open, reset]);
 
-    // Populate form if editing an existing task
     useEffect(() => {
         if (isEdit && task) {
-            const { title, date, time, description } = task;
+            const formattedDate = task.date
+                ? new Date(task.date).toISOString().split('T')[0]
+                : '';
 
-            // Kiểm tra và chuyển đổi ngày từ chuỗi ISO sang đối tượng Date
-            const formattedDate = date
-                ? new Date(date).toISOString().split('T')[0]
-                : ''; // Nếu có ngày thì chuyển thành đối tượng Date, nếu không thì dùng ngày hiện tại.
-
-            setValue('title', title);
-            setValue('date', formattedDate); // Truyền vào đối tượng Date
-            setValue('time', time);
-            setValue('description', description);
+            setValue('title', task.title);
+            setValue('date', formattedDate);
+            setValue('time', task.time);
+            setValue('description', task.description);
         }
     }, [isEdit, task, setValue]);
-
-
 
     const onSubmit = (data: FormData) => {
         const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
 
         if (isEdit && task) {
-            const index = tasks.findIndex((t: Task) => t.id === task.id);
-            if (index !== -1) {
-                tasks[index] = { ...tasks[index], ...data };
-            }
-            dispatch({ type: 'UPDATE_TASK', payload: { id: task.id, ...data } });
+            const updatedTask = { ...task, ...data };
+            localStorage.setItem('tasks', JSON.stringify(
+                tasks.map((t: Task) => t.id === task.id ? updatedTask : t)
+            ));
+            dispatch({ type: 'UPDATE_TASK', payload: updatedTask });
         } else {
-            const newTask = { id: Date.now(), ...data, completed: false };
-            tasks.push(newTask);
+            const newTask = {
+                id: Date.now(),
+                ...data,
+                completed: false,
+                createdAt: new Date().toISOString()
+            };
+            localStorage.setItem('tasks', JSON.stringify([...tasks, newTask]));
             dispatch({ type: 'ADD_TASK', payload: newTask });
         }
 
-        localStorage.setItem('tasks', JSON.stringify(tasks));
         onClose();
     };
 
@@ -86,8 +81,12 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
             open={open}
             onClose={onClose}
             closeAfterTransition
-            aria-labelledby="add-task-modal"
-            aria-describedby="form-to-add-task"
+            BackdropProps={{
+                sx: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    backdropFilter: 'blur(4px)'
+                }
+            }}
         >
             <Box
                 sx={{
@@ -95,62 +94,71 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    bgcolor: '#E4E5E4',
-                    borderRadius: '8px',
+                    bgcolor: '#2D2D2D',
+                    border: '1px solid #404040',
+                    borderRadius: '12px',
                     boxShadow: 24,
                     p: 4,
                     width: { xs: '90%', sm: '500px' },
                     maxWidth: 'md',
+                    color: '#FFFFFF'
                 }}
             >
-                <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors">
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 transition-colors"
+                >
                     <Close className="w-6 h-6" />
                 </button>
 
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{isEdit ? 'Edit Task' : 'Add Task'}</h2>
+                <h2 className="text-2xl font-bold text-gray-100 mb-6">
+                    {isEdit ? 'Edit Task' : 'Add Task'}
+                </h2>
 
                 <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                     <BaseInput
                         control={control}
                         name="title"
                         label="Title"
-                        placeholder="Enter the task title"
+                        placeholder="Enter task title"
                         error={!!errors.title}
                         helperText={errors.title?.message}
                     />
 
-                    <BaseInput
-                        control={control}
-                        name="date"
-                        label="Select Date"
-                        type="date"
-                        error={!!errors.date}
-                        helperText={errors.date?.message}
-                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <BaseInput
+                            control={control}
+                            name="date"
+                            label="Date"
+                            type="date"
+                            error={!!errors.date}
+                            helperText={errors.date?.message}
+                        />
 
-                    <BaseInput
-                        control={control}
-                        name="time"
-                        label="Select Time"
-                        type="time"
-                        error={!!errors.time}
-                        helperText={errors.time?.message}
-                    />
+                        <BaseInput
+                            control={control}
+                            name="time"
+                            label="Time"
+                            type="time"
+                            error={!!errors.time}
+                            helperText={errors.time?.message}
+                        />
+                    </div>
 
                     <BaseInput
                         control={control}
                         name="description"
                         label="Description"
-                        placeholder="Optional, add a description"
+                        placeholder="Add description (optional)"
                         multiline
                         rows={4}
                     />
 
                     <BaseButton
                         type="submit"
-                        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-200 transform hover:scale-[1.01]"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-200"
                     >
-                        {isEdit ? 'Edit Task' : 'Add Task'}
+                        {isEdit ? 'Update Task' : 'Create Task'}
                     </BaseButton>
                 </form>
             </Box>

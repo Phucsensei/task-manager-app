@@ -1,14 +1,13 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
-import AppRouter from './router/AppRouter'; // Import AppRouter
+import { BrowserRouter } from 'react-router-dom';
+import AppRouter from './router/AppRouter';
 import TaskProvider from './feature/context/TaskContext';
 
 function App() {
   return (
-    <BrowserRouter>  {/* Bọc toàn bộ ứng dụng trong BrowserRouter */}
+    <BrowserRouter>
       <TaskProvider>
         <AppRouter />
-
       </TaskProvider>
     </BrowserRouter>
   );

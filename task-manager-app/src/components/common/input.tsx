@@ -19,7 +19,7 @@ const BaseInput: React.FC<InputProps> = ({ label, control, name, error, helperTe
     <Controller
         name={name}
         control={control}
-        defaultValue="" // Đảm bảo có giá trị mặc định
+        defaultValue=""
         render={({ field }) => (
             <TextField
                 {...field}
@@ -28,8 +28,36 @@ const BaseInput: React.FC<InputProps> = ({ label, control, name, error, helperTe
                 fullWidth
                 error={error}
                 helperText={error ? helperText : ''}
-                InputLabelProps={{ shrink: true }}
-                value={field.value || ""} // Nếu không có giá trị, sử dụng chuỗi rỗng
+                InputLabelProps={{
+                    shrink: true,
+                    style: {
+                        color: '#B0B0B0',
+                        fontWeight: 500
+                    }
+                }}
+                InputProps={{
+                    style: {
+                        color: '#FFFFFF',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        borderRadius: '8px',
+                    }
+                }}
+                sx={{
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: '#404040',
+                        },
+                        '&:hover fieldset': {
+                            borderColor: '#606060!important',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: '#2563EB!important',
+                        }
+                    },
+                    '& .MuiFormHelperText-root': {
+                        color: error ? '#F87171' : '#808080'
+                    }
+                }}
                 {...props}
             />
         )}

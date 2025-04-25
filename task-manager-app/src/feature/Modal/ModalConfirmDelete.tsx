@@ -6,8 +6,7 @@ import {
     DialogTitle,
     Button,
     Typography,
-    Stack,
-    useTheme
+    Stack
 } from '@mui/material';
 
 interface ConfirmDeleteProps {
@@ -17,8 +16,6 @@ interface ConfirmDeleteProps {
 }
 
 const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ open, onClose, onConfirm }) => {
-    const theme = useTheme();
-
     return (
         <Dialog
             open={open}
@@ -28,25 +25,41 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ open, onClose, onConfirm 
             sx={{
                 '& .MuiPaper-root': {
                     borderRadius: '16px',
-                    padding: theme.spacing(2)
+                    padding: 2,
+                    backgroundColor: '#2D2D2D',
+                    border: '1px solid #404040',
+                    boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.5)'
                 }
             }}
         >
-            {/* Modified DialogTitle */}
             <DialogTitle textAlign="center" sx={{ pb: 1 }}>
-                <Typography variant="h6" fontWeight={700} component="div"> {/* or 'span' if more semantic */}
+                <Typography
+                    variant="h6"
+                    fontWeight={700}
+                    component="div"
+                    color="#FFFFFF"
+                >
                     Are you sure?
                 </Typography>
             </DialogTitle>
 
-            <DialogContent sx={{ textAlign: 'center' }}>
-                <Typography variant="body2" color="text.secondary">
+            <DialogContent sx={{ textAlign: 'center', py: 2 }}>
+                <Typography
+                    variant="body2"
+                    color="#B0B0B0"
+                    sx={{ lineHeight: 1.6 }}
+                >
                     This action cannot be undone. All values associated with this item will be permanently removed.
                 </Typography>
             </DialogContent>
 
-            <DialogActions sx={{ pt: 3 }}>
-                <Stack spacing={2} direction="row" width="100%" justifyContent="center">
+            <DialogActions sx={{ pt: 3, px: 3 }}>
+                <Stack
+                    spacing={2}
+                    direction="row"
+                    width="100%"
+                    justifyContent="center"
+                >
                     <Button
                         variant="outlined"
                         onClick={onClose}
@@ -55,9 +68,11 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ open, onClose, onConfirm 
                             px: 4,
                             borderRadius: '8px',
                             textTransform: 'none',
-                            boxShadow: 'none',
+                            color: '#FFFFFF',
+                            borderColor: '#404040',
                             '&:hover': {
-                                backgroundColor: theme.palette.action.hover
+                                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                borderColor: '#606060'
                             }
                         }}
                     >
@@ -65,16 +80,17 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ open, onClose, onConfirm 
                     </Button>
                     <Button
                         variant="contained"
-                        color="error"
                         onClick={onConfirm}
                         size="large"
                         sx={{
                             px: 4,
                             borderRadius: '8px',
                             textTransform: 'none',
+                            backgroundColor: '#F44336',
+                            color: '#FFFFFF',
                             '&:hover': {
-                                boxShadow: 'none',
-                                backgroundColor: theme.palette.error.dark
+                                backgroundColor: '#D32F2F',
+                                boxShadow: 'none'
                             }
                         }}
                     >

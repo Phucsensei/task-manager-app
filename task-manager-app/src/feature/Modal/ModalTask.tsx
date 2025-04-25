@@ -8,6 +8,7 @@ import BaseInput from '../../components/common/input';
 import BaseButton from '../../components/common/button';
 import { Task } from '../../types/type';
 import { useTask } from '../context/taskProvider';
+import { useTheme } from '../context/ThemeContext';
 
 interface ModalTaskProps {
     open: boolean;
@@ -32,6 +33,7 @@ const validationSchema = Yup.object({
 
 const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) => {
     const { dispatch } = useTask();
+    const { darkMode } = useTheme();  // Access darkMode from context
     const { control, handleSubmit, setValue, reset, formState: { errors } } = useForm({
         resolver: yupResolver(validationSchema),
     });
@@ -79,7 +81,6 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
         onClose();
     };
 
-
     return (
         <Modal
             open={open}
@@ -98,13 +99,14 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    bgcolor: '#2D2D2D',
-                    border: '1px solid #404040',
+                    bgcolor: darkMode ? '#2D2D2D' : '#FFFFFF',  // Modal background color
+                    border: darkMode ? '1px solid #404040' : '1px solid #E0E0E0',  // Border color based on dark mode
                     borderRadius: '5px',
                     boxShadow: 24,
                     p: 4,
                     width: { xs: '90%', sm: '500px' },
-                    maxWidth: 'md'
+                    maxWidth: 'md',
+                    color: darkMode ? '#FFFFFF' : '#000000',  // Text color based on dark mode
                 }}
             >
                 <button
@@ -114,7 +116,7 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
                     <Close className="w-6 h-6" />
                 </button>
 
-                <h2 className="text-2xl font-bold text-gray-100 mb-6">
+                <h2 className="text-2xl font-bold mb-6" style={{ color: darkMode ? '#FFFFFF' : '#000000' }}>
                     {isEdit ? 'Edit Task' : 'Add Task'}
                 </h2>
 
@@ -159,7 +161,7 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
 
                     <BaseButton
                         type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-200"
+                        className={`w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors duration-200 ${darkMode ? 'bg-blue-600' : 'bg-blue-500'}`}
                     >
                         {isEdit ? 'Update Task' : 'Create Task'}
                     </BaseButton>

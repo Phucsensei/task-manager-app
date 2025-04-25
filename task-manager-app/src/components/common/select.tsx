@@ -4,6 +4,8 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { SxProps, Theme } from '@mui/material/styles';
+import { useTheme } from '../../feature/context/ThemeContext';
+
 
 interface CustomSelectProps {
     options: string[];
@@ -26,31 +28,33 @@ const BaseSelect: React.FC<CustomSelectProps> = ({
     height = { xs: 40, md: 45 },
     sx
 }) => {
+    const { darkMode } = useTheme(); // Access darkMode from context
+
     const baseStyles: SxProps<Theme> = {
         '& .MuiInputLabel-root': {
-            color: '#9CA3AF',
+            color: darkMode ? '#9CA3AF' : '#6B7280',  // Dark mode label color
             '&.Mui-focused': {
-                color: '#60A5FA'
-            }
+                color: '#60A5FA',
+            },
         },
         '& .MuiOutlinedInput-root': {
-            color: '#F3F4F6',
+            color: darkMode ? '#F3F4F6' : '#1F2937',  // Adjust text color based on dark mode
             height: height,
             '& fieldset': {
-                borderColor: '#4B5563',
-                borderRadius: '8px'
+                borderColor: darkMode ? '#4B5563' : '#D1D5DB',  // Border color in dark mode
+                borderRadius: '8px',
             },
             '&:hover fieldset': {
-                borderColor: '#6B7280'
+                borderColor: darkMode ? '#6B7280' : '#4B5563',  // Hover border color
             },
             '&.Mui-focused fieldset': {
-                borderColor: '#60A5FA'
-            }
+                borderColor: '#60A5FA',
+            },
         },
         '& .MuiSvgIcon-root': {
-            color: '#9CA3AF'
+            color: darkMode ? '#9CA3AF' : '#1F2937',  // Icon color in dark mode
         },
-        ...sx
+        ...sx,
     };
 
     return (
@@ -71,21 +75,21 @@ const BaseSelect: React.FC<CustomSelectProps> = ({
                 MenuProps={{
                     PaperProps: {
                         sx: {
-                            backgroundColor: '#1F2937',
-                            color: '#F3F4F6',
+                            backgroundColor: darkMode ? '#1F2937' : '#FFFFFF',  // Menu background color
+                            color: darkMode ? '#F3F4F6' : '#1F2937',  // Text color in menu
                             '& .MuiMenuItem-root': {
                                 '&:hover': {
-                                    backgroundColor: '#374151'
+                                    backgroundColor: darkMode ? '#374151' : '#F3F4F6',
                                 },
                                 '&.Mui-selected': {
                                     backgroundColor: '#3B82F6',
                                     '&:hover': {
-                                        backgroundColor: '#2563EB'
-                                    }
-                                }
-                            }
-                        }
-                    }
+                                        backgroundColor: '#2563EB',
+                                    },
+                                },
+                            },
+                        },
+                    },
                 }}
             >
                 {options.map((option) => (

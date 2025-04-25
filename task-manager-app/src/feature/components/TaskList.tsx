@@ -4,11 +4,13 @@ import TaskItem from './TaskItem';
 import ModalTask from '../Modal/ModalTask';
 import BaseButton from '../../components/common/button';
 import BaseSelect from '../../components/common/select';
+import { useTheme } from '../context/themeContext'; // Import useTheme hook
 
 const TaskList: React.FC = () => {
     const { state } = useTask();
     const [openModal, setOpenModal] = React.useState(false);
     const [selectedValue, setSelectedValue] = React.useState<string>("All Tasks");
+    const { darkMode } = useTheme(); // Access darkMode from context
 
     const handleSelectChange = (newValue: string) => {
         setSelectedValue(newValue);
@@ -28,16 +30,18 @@ const TaskList: React.FC = () => {
 
     return (
         <div className="p-6">
-            <div className="bg-gray-800 border border-gray-700 rounded-sm shadow-xl w-full mx-auto"
+            <div
+                className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'
+                    } border rounded-sm shadow-xl w-full mx-auto`}
                 style={{
                     height: '750px',
                     display: 'flex',
                     flexDirection: 'column',
                 }}
             >
-                <div className="p-4 border-b border-gray-700">
+                <div className="p-4 border-b">
                     <div className="flex justify-between items-center">
-                        <h2 className="text-xl font-semibold text-gray-100">
+                        <h2 className={`text-xl font-semibold ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
                             Your Tasks: <span className="text-gray-400">{filteredTasks.length} items</span>
                         </h2>
 
@@ -50,7 +54,10 @@ const TaskList: React.FC = () => {
                             />
                             <BaseButton
                                 onClick={() => setOpenModal(true)}
-                                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg"
+                                className={`${darkMode
+                                    ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                                    : 'bg-blue-600 hover:bg-blue-500 text-white'
+                                    } px-6 py-3 rounded-lg`}
                             >
                                 Create Task
                             </BaseButton>
@@ -66,7 +73,7 @@ const TaskList: React.FC = () => {
 
                         {filteredTasks.length === 0 && (
                             <div className="col-span-full text-center py-12">
-                                <p className="text-gray-400 text-lg">
+                                <p className={`text-lg ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                     No tasks found. Start by creating one!
                                 </p>
                             </div>

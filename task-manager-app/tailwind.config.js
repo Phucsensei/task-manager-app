@@ -5,6 +5,7 @@ export default {
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
+    darkMode: 'class', // Cho phép chuyển đổi dark mode bằng cách thêm lớp 'dark'
     theme: {
         extend: {
             colors: {

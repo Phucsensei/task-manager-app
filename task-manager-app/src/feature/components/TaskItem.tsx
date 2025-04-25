@@ -5,9 +5,11 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useTask } from '../context/taskProvider';
 import ConfirmDelete from '../Modal/ModalConfirmDelete';
 import ModalTask from '../Modal/ModalTask';
+import { useTheme } from '../context/ThemeContext';
 
 const TaskItem: React.FC<{ task: any }> = ({ task }) => {
     const { dispatch } = useTask();
+    const { darkMode } = useTheme(); // Access darkMode from context
     const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
     const [openModalTask, setOpenModalTask] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
@@ -52,11 +54,15 @@ const TaskItem: React.FC<{ task: any }> = ({ task }) => {
 
     return (
         <div
-            className={`bg-gray-800 backdrop-blur-lg text-gray-100 p-4 md:p-5 mt-4 rounded-xl w-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 flex flex-col justify-between min-h-[250px] relative group`}
+            className={`${darkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-800'
+                } backdrop-blur-lg p-4 md:p-5 mt-4 rounded-xl w-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 flex flex-col justify-between min-h-[250px] relative group`}
             style={{ opacity: task.completed ? 0.5 : 1 }}
         >
             <div className="flex justify-between items-center gap-2">
-                <span className="text-base md:text-lg font-semibold text-gray-100 flex-1 overflow-hidden whitespace-nowrap truncate pr-2">
+                <span
+                    className={`text-base md:text-lg font-semibold overflow-hidden whitespace-nowrap truncate pr-2 ${darkMode ? 'text-gray-100' : 'text-gray-800'
+                        }`}
+                >
                     {task.title}
                 </span>
                 <div
@@ -67,11 +73,15 @@ const TaskItem: React.FC<{ task: any }> = ({ task }) => {
                 </div>
             </div>
 
-            <div className="text-gray-400 flex-grow truncate" title={task.description}>
+            <div
+                className={`${darkMode ? 'text-gray-400' : 'text-gray-600'
+                    } flex-grow truncate`}
+                title={task.description}
+            >
                 {task.description}
             </div>
 
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center text-sm text-gray-400 gap-2">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center text-sm gap-2">
                 <div className="flex items-center gap-1.5 flex-1">
                     <BsCalendarEvent className="text-blue-400" size={16} />
                     <span className="ml-1 text-sm md:text-base font-medium">{formattedDate}</span>
@@ -86,7 +96,9 @@ const TaskItem: React.FC<{ task: any }> = ({ task }) => {
 
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
                 <span
-                    className={`px-3 py-1 rounded-md text-xs md:text-sm font-bold tracking-wide ${task.completed ? 'bg-green-900/30 text-green-400' : 'bg-yellow-900/30 text-yellow-400'
+                    className={`px-3 py-1 rounded-md text-xs md:text-sm font-bold tracking-wide ${task.completed
+                        ? 'bg-green-900/30 text-green-400'
+                        : 'bg-yellow-900/30 text-yellow-400'
                         }`}
                 >
                     {task.completed ? 'COMPLETED' : 'PENDING'}

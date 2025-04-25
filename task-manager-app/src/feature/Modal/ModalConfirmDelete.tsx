@@ -8,6 +8,7 @@ import {
     Typography,
     Stack
 } from '@mui/material';
+import { useTheme } from '../context/ThemeContext';
 
 interface ConfirmDeleteProps {
     open: boolean;
@@ -16,6 +17,8 @@ interface ConfirmDeleteProps {
 }
 
 const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ open, onClose, onConfirm }) => {
+    const { darkMode } = useTheme(); // Access darkMode from context
+
     return (
         <Dialog
             open={open}
@@ -26,8 +29,8 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ open, onClose, onConfirm 
                 '& .MuiPaper-root': {
                     borderRadius: '16px',
                     padding: 2,
-                    backgroundColor: '#2D2D2D',
-                    border: '1px solid #404040',
+                    backgroundColor: darkMode ? '#2D2D2D' : '#FFFFFF', // Dark mode background color
+                    border: darkMode ? '1px solid #404040' : '1px solid #E0E0E0', // Border color based on dark mode
                     boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.5)'
                 }
             }}
@@ -37,7 +40,7 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ open, onClose, onConfirm 
                     variant="h6"
                     fontWeight={700}
                     component="div"
-                    color="#FFFFFF"
+                    color={darkMode ? '#FFFFFF' : '#333333'} // Title color based on dark mode
                 >
                     Are you sure?
                 </Typography>
@@ -46,7 +49,7 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ open, onClose, onConfirm 
             <DialogContent sx={{ textAlign: 'center', py: 2 }}>
                 <Typography
                     variant="body2"
-                    color="#B0B0B0"
+                    color={darkMode ? '#B0B0B0' : '#333333'} // Content color based on dark mode
                     sx={{ lineHeight: 1.6 }}
                 >
                     This action cannot be undone. All values associated with this item will be permanently removed.
@@ -68,11 +71,11 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ open, onClose, onConfirm 
                             px: 4,
                             borderRadius: '8px',
                             textTransform: 'none',
-                            color: '#FFFFFF',
-                            borderColor: '#404040',
+                            color: darkMode ? '#FFFFFF' : '#333333', // Cancel button text color
+                            borderColor: darkMode ? '#404040' : '#E0E0E0', // Border color for cancel button
                             '&:hover': {
-                                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                                borderColor: '#606060'
+                                backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.1)' : '#F0F0F0',
+                                borderColor: darkMode ? '#606060' : '#B0B0B0'
                             }
                         }}
                     >

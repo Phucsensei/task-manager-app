@@ -19,6 +19,7 @@ const BaseInput: React.FC<InputProps> = ({ label, control, name, error, helperTe
     <Controller
         name={name}
         control={control}
+        defaultValue="" // Đảm bảo có giá trị mặc định
         render={({ field }) => (
             <TextField
                 {...field}
@@ -28,6 +29,7 @@ const BaseInput: React.FC<InputProps> = ({ label, control, name, error, helperTe
                 error={error}
                 helperText={error ? helperText : ''}
                 InputLabelProps={{ shrink: true }}
+                value={field.value || ""} // Nếu không có giá trị, sử dụng chuỗi rỗng
                 {...props}
             />
         )}

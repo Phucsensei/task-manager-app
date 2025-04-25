@@ -1,21 +1,17 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from '../layout/MainLayout';
-import TaskItem from '../feature/components/TaskItem';
-import { TaskProvider } from '../feature/context/TaskContext';
-
-
+import TaskList from '../feature/components/TaskList';
 const AppRouter: React.FC = () => {
     return (
-        <TaskProvider>
-            <Routes>
-                <Route path="/" element={<Navigate to="/tasks" />} />
-                <Route path="/" element={<MainLayout />}>
-                    <Route path="tasks" element={<TaskItem />} />
-                </Route>
-                <Route path="*" element={<Navigate to="/login" />} />
-            </Routes>
-        </TaskProvider>
+        <Routes>
+            <Route path="/" element={<Navigate to="/tasks" />} />
+            <Route path="/" element={<MainLayout />}>
+                <Route path="tasks" element={<TaskList />} />
+            </Route>
+            <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+
     );
 };
 

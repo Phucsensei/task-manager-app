@@ -6,38 +6,78 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import BaseInput from '../../components/common/input';
 import BaseButton from '../../components/common/button';
+import { useTask } from '../context/TaskContext';
+import { Task } from '../../types/Type';
 
 interface ModalTaskProps {
     open: boolean;
     onClose: () => void;
     isEdit: boolean;
-    task?: any;
+    task?: Task;
+}
+
+interface FormData {
+    title: string;
+    date: string;
+    time: string;
+    description?: string;
 }
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
-    date: Yup.date().required('Date is required'),
+    date: Yup.string().required('Date is required'),
     time: Yup.string().required('Time is required'),
     description: Yup.string().optional(),
 });
 
 const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) => {
-    const { control, handleSubmit, setValue, formState: { errors } } = useForm({
+    const { dispatch } = useTask();
+    const { control, handleSubmit, setValue, reset, formState: { errors } } = useForm({
         resolver: yupResolver(validationSchema),
     });
 
+    // Reset form when modal is closed
+    useEffect(() => {
+        if (!open) {
+            reset(); // Reset form when modal is closed
+        }
+    }, [open, reset]);
+
+    // Populate form if editing an existing task
     useEffect(() => {
         if (isEdit && task) {
-            const { text, date, time, description } = task;
-            setValue('title', text);
-            setValue('date', date);
+            const { title, date, time, description } = task;
+
+            // Kiểm tra và chuyển đổi ngày từ chuỗi ISO sang đối tượng Date
+            const formattedDate = date
+                ? new Date(date).toISOString().split('T')[0]
+                : ''; // Nếu có ngày thì chuyển thành đối tượng Date, nếu không thì dùng ngày hiện tại.
+
+            setValue('title', title);
+            setValue('date', formattedDate); // Truyền vào đối tượng Date
             setValue('time', time);
             setValue('description', description);
         }
     }, [isEdit, task, setValue]);
 
-    const onSubmit = (data: any) => {
-        console.log(isEdit ? 'Editing Task:' : 'Adding Task:', data);
+
+
+    const onSubmit = (data: FormData) => {
+        const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+
+        if (isEdit && task) {
+            const index = tasks.findIndex((t: Task) => t.id === task.id);
+            if (index !== -1) {
+                tasks[index] = { ...tasks[index], ...data };
+            }
+            dispatch({ type: 'UPDATE_TASK', payload: { id: task.id, ...data } });
+        } else {
+            const newTask = { id: Date.now(), ...data, completed: false };
+            tasks.push(newTask);
+            dispatch({ type: 'ADD_TASK', payload: newTask });
+        }
+
+        localStorage.setItem('tasks', JSON.stringify(tasks));
         onClose();
     };
 
@@ -55,7 +95,7 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    bgcolor: 'white',
+                    bgcolor: '#E4E5E4',
                     borderRadius: '8px',
                     boxShadow: 24,
                     p: 4,

@@ -1,40 +1,112 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useReducer, ReactNode, useContext, useEffect } from 'react';
+import { Task } from '../../types/Type';
 
-interface Task {
-    text: string;
-    description: string;
-    date: string;
-    time: string;
-    completed: boolean;
+// Kiểu dữ liệu Task
+
+// Kiểu State và Action
+export interface TaskState {
+    tasks: Task[];
 }
 
-interface TaskContextType {
-    task: Task;
-    setTask: React.Dispatch<React.SetStateAction<Task>>;
-}
+type TaskAction =
+    | { type: 'SET_TASKS', payload: Task[] }
+    | { type: 'ADD_TASK', payload: Task }
+    | { type: 'DELETE_TASK', payload: number }
+    | { type: 'TOGGLE_TASK', payload: { id: number, completed: boolean } }
+    | {
+        type: 'UPDATE_TASK'
+        payload: {
+            id: number
+            title?: string
+            description?: string
+            deadline?: string
+            isImportant?: boolean
+            completed?: boolean
+        }
+    };
 
-const TaskContext = createContext<TaskContextType | undefined>(undefined);
+// Reducer
+const taskReducer = (state: TaskState, action: TaskAction): TaskState => {
+    let updatedTasks: Task[] = [];
 
-export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [task, setTask] = React.useState<Task>({
-        text: 'Learn React',
-        description: 'Study React and related technologies.',
-        date: '2025-04-30',
-        time: '10:00 AM',
-        completed: false,
-    });
+    if (action.type === 'SET_TASKS') {
+        return { tasks: action.payload };
+    }
 
-    return (
-        <TaskContext.Provider value={{ task, setTask }}>
-            {children}
-        </TaskContext.Provider>
-    );
+    if (action.type === 'ADD_TASK') {
+        updatedTasks = [...state.tasks, action.payload];
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        return { tasks: updatedTasks };
+    }
+
+    if (action.type === 'DELETE_TASK') {
+        updatedTasks = state.tasks.filter((task) => task.id !== action.payload);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        return { tasks: updatedTasks };
+    }
+
+    if (action.type === 'TOGGLE_TASK') {
+        updatedTasks = state.tasks.map((task) =>
+            task.id === action.payload.id
+                ? { ...task, completed: action.payload.completed }
+                : task
+        );
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        return { tasks: updatedTasks };
+    }
+
+    if (action.type === 'UPDATE_TASK') {
+        updatedTasks = state.tasks.map((task) =>
+            task.id === action.payload.id ? { ...task, ...action.payload } : task
+        );
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        return { tasks: updatedTasks };
+    }
+
+    return state;
 };
 
-export const useTask = (): TaskContextType => {
+// Create context
+interface TaskContextType {
+    state: TaskState;
+    dispatch: React.Dispatch<TaskAction>;
+}
+
+export const TaskContext = createContext<TaskContextType | undefined>(undefined);
+
+// Custom hook to use TaskContext
+export const useTask = () => {
     const context = useContext(TaskContext);
     if (!context) {
         throw new Error('useTask must be used within a TaskProvider');
     }
     return context;
 };
+
+// TaskProvider component
+export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const [state, dispatch] = useReducer(taskReducer, { tasks: [] });
+
+    useEffect(() => {
+        try {
+            const storedTasks = localStorage.getItem('tasks');
+            if (storedTasks !== null) {
+                const parsedTasks = JSON.parse(storedTasks);
+                if (Array.isArray(parsedTasks)) {
+                    dispatch({ type: 'SET_TASKS', payload: parsedTasks });
+                }
+            }
+        } catch (error) {
+            console.error('❌ Error loading tasks from localStorage:', error);
+            localStorage.removeItem('tasks');
+        }
+    }, []);
+
+    return (
+        <TaskContext.Provider value={{ state, dispatch }}>
+            {children}
+        </TaskContext.Provider>
+    );
+};
+
+export default TaskProvider;

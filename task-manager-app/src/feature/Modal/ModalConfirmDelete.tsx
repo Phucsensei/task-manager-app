@@ -32,10 +32,9 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ open, onClose, onConfirm 
                 }
             }}
         >
-
-
+            {/* Modified DialogTitle */}
             <DialogTitle textAlign="center" sx={{ pb: 1 }}>
-                <Typography variant="h6" fontWeight={700}>
+                <Typography variant="h6" fontWeight={700} component="div"> {/* or 'span' if more semantic */}
                     Are you sure?
                 </Typography>
             </DialogTitle>

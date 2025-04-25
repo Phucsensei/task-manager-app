@@ -6,8 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import BaseInput from '../../components/common/input';
 import BaseButton from '../../components/common/button';
-import { useTask } from '../context/TaskContext';
-import { Task } from '../../types/Type';
+import { Task } from '../../types/type';
+import { useTask } from '../context/taskProvider';
 
 interface ModalTaskProps {
     open: boolean;
@@ -56,8 +56,10 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
     const onSubmit = (data: FormData) => {
         const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
 
+        const description = data.description || '';
+
         if (isEdit && task) {
-            const updatedTask = { ...task, ...data };
+            const updatedTask = { ...task, ...data, description };
             localStorage.setItem('tasks', JSON.stringify(
                 tasks.map((t: Task) => t.id === task.id ? updatedTask : t)
             ));
@@ -67,7 +69,8 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
                 id: Date.now(),
                 ...data,
                 completed: false,
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toISOString(),
+                description,
             };
             localStorage.setItem('tasks', JSON.stringify([...tasks, newTask]));
             dispatch({ type: 'ADD_TASK', payload: newTask });
@@ -75,6 +78,7 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
 
         onClose();
     };
+
 
     return (
         <Modal
@@ -96,12 +100,11 @@ const ModalTask: React.FC<ModalTaskProps> = ({ open, onClose, isEdit, task }) =>
                     transform: 'translate(-50%, -50%)',
                     bgcolor: '#2D2D2D',
                     border: '1px solid #404040',
-                    borderRadius: '12px',
+                    borderRadius: '5px',
                     boxShadow: 24,
                     p: 4,
                     width: { xs: '90%', sm: '500px' },
-                    maxWidth: 'md',
-                    color: '#FFFFFF'
+                    maxWidth: 'md'
                 }}
             >
                 <button

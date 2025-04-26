@@ -11,12 +11,11 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
     const [openModal, setOpenModal] = React.useState(false);
-    const { darkMode, toggleDarkMode } = useTheme();  // Access darkMode state and toggleDarkMode function from context
+    const { darkMode, toggleDarkMode } = useTheme();
 
     return (
-        <header className={`top-0 left-0 w-full ${darkMode ? 'bg-gray-800/90' : 'bg-white/90'} backdrop-blur-md shadow-xl z-50 px-4 sm:px-6 py-3.5 border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+        <header className={`top-0 left-0 w-full backdrop-blur-md z-50 px-4 sm:px-6 py-3.5 border-b ${darkMode ? 'bg-gray-900/95 border-gray-700' : 'bg-white border-gray-200'}`}>
             <div className="flex flex-col md:flex-row justify-between items-center max-w-full mx-auto gap-3 md:gap-6">
-                {/* Left Section */}
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center gap-3">
                         <button
@@ -33,16 +32,8 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                             </span>
                         </div>
                     </div>
-
-                    <button
-                        className={`md:hidden px-4 py-1.5 rounded-md text-sm font-medium whitespace-nowrap shadow-sm transition-colors ${darkMode ? 'bg-gray-700 text-gray-100 hover:bg-gray-600' : 'bg-blue-600 text-white hover:bg-blue-500'}`}
-                        onClick={() => setOpenModal(true)}
-                    >
-                        Create Task
-                    </button>
                 </div>
 
-                {/* Center Navigation */}
                 <nav className="hidden lg:flex items-center gap-5 ml-2">
                     {['Workspaces', 'Recent', 'Starred', 'Templates'].map((item) => (
                         <a
@@ -55,27 +46,26 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                     ))}
                 </nav>
 
-                {/* Right Section */}
                 <div className="flex items-center justify-end w-full md:w-auto gap-4">
-                    {/* Search Input */}
-                    <div className="flex-1 max-w-full md:max-w-xl">
+                    <div className="hidden lg:flex flex-1 max-w-2xl mx-8">
                         <div className="relative w-full">
-                            <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-                                <IoSearch className={`w-5 h-5 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`} />
+                            <div className={`absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                                <IoSearch className="h-5 w-5" />
                             </div>
                             <input
                                 type="text"
                                 placeholder="Search tasks..."
-                                className={`w-full pl-10 pr-4 py-2 rounded-lg backdrop-blur-sm border outline-none transition-all ${darkMode ? 'bg-gray-700/30 border-gray-600 text-gray-100 placeholder:text-gray-400' : 'bg-white/30 border-gray-300 text-gray-800 placeholder:text-gray-500'}`}
+                                className={`w-full pl-10 pr-4 py-2 rounded-xl border transition-all ${darkMode
+                                    ? 'bg-gray-800 border-gray-700 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-blue-500'
+                                    : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-400'
+                                    }`}
                             />
                         </div>
                     </div>
 
-                    {/* Icons and Profile */}
                     <div className="hidden md:flex items-center gap-4">
-                        {/* Dark Mode Toggle */}
                         <button
-                            onClick={toggleDarkMode}  // Use the toggleDarkMode function from context
+                            onClick={toggleDarkMode}
                             className={`p-2 rounded-lg transition-colors ${darkMode ? 'hover:bg-gray-700/40' : 'hover:bg-gray-100'}`}
                         >
                             {darkMode ? (
@@ -92,11 +82,11 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
 
                         <IoHelpCircleOutline className={`w-6 h-6 transition-colors ${darkMode ? 'text-gray-300 hover:text-gray-100' : 'text-gray-600 hover:text-gray-800'}`} />
 
-                        <div className={`w-8 h-8 rounded-full overflow-hidden flex-shrink-0 shadow-sm transition-colors cursor-pointer border ${darkMode ? 'border-gray-600 hover:bg-gray-700' : 'border-gray-300 hover:bg-gray-100'}`}>
+                        <div className={`ml-2 p-1 rounded-full border ${darkMode ? 'border-gray-700 hover:bg-gray-800' : 'border-gray-200 hover:bg-gray-100'}`}>
                             <img
                                 src="https://static.vecteezy.com/system/resources/previews/025/277/267/non_2x/happy-indian-man-semi-flat-character-head-editable-cartoon-avatar-icon-man-with-beard-and-curly-hair-face-emotion-colorful-spot-illustration-for-web-graphic-design-animation-vector.jpg"
                                 alt="User avatar"
-                                className="w-full h-full object-cover"
+                                className="h-8 w-8 rounded-full object-cover"
                             />
                         </div>
                     </div>

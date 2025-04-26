@@ -26,11 +26,16 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, isSidebarOpen }) => {
                         </button>
 
                         <div className="flex items-center gap-2">
-                            <IoGridOutline className={`w-7 h-7 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`} />
+                            <img
+                                src="https://cdn.iconscout.com/icon/free/png-256/free-trello-logo-icon-download-in-svg-png-gif-file-formats--tasks-bloomies-webdesign-tools-pack-logos-icons-682087.png?f=webp"
+                                alt="Logo"
+                                className="w-10 h-10"
+                            />
                             <span className={`text-xl font-semibold ${darkMode ? 'text-gray-100' : 'text-gray-800'} tracking-tight`}>
                                 TodoApp
                             </span>
                         </div>
+
                     </div>
                 </div>
 

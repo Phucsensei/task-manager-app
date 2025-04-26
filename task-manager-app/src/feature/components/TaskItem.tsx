@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BsCalendarEvent, BsPencilSquare, BsClock } from 'react-icons/bs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { useTask } from '../context/taskProvider';
+import { useTask } from '../context/TaskProvider';
 import ConfirmDelete from '../Modal/ModalConfirmDelete';
 import ModalTask from '../Modal/ModalTask';
 import { useTheme } from '../context/ThemeContext';

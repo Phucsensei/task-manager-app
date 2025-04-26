@@ -1,5 +1,5 @@
 import React from 'react';
-import { IoSearch, IoNotificationsOutline, IoHelpCircleOutline, IoGridOutline, IoMoon, IoSunny } from 'react-icons/io5';
+import { IoSearch, IoNotificationsOutline, IoHelpCircleOutline, IoMoon, IoSunny } from 'react-icons/io5';
 import { FiMenu, FiChevronLeft } from 'react-icons/fi';
 import ModalTask from '../feature/Modal/ModalTask';
 import { useTheme } from '../feature/context/ThemeContext';

@@ -58,7 +58,7 @@ Before you start, ensure you have the following installed:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Puskar-Roy/Task-Management-Web
+   [git clone https://github.com/Puskar-Roy/Task-Management-Web](https://github.com/Phucsensei/task-manager-app.git)
 
    ```
 

@@ -23,27 +23,33 @@ This is a task management website built with React, designed for efficient task 
      ![image](https://github.com/user-attachments/assets/53b2c0bc-4f5c-456e-9566-89e868f6324e)
 
    - **Delete Task:** Remove tasks by clicking the trash can icon and confirming the deletion.
-     ![Delete Task](image-5.png)
+    ![image](https://github.com/user-attachments/assets/477ed4f4-b656-4bc7-8939-bd1eec543b40)
+
 
 3. **Filter Tasks:**
 
-   ![Filter Tasks](image-3.png)
+   ![image](https://github.com/user-attachments/assets/c2d9243e-8a3e-4bcf-95f5-c98594c10c36)
+
 
    - Quickly filter tasks by their status (e.g., "To Do," "In Progress," "Complete") for efficient management.
 
 4. **Task Status Toggle:**
 
+   ![image](https://github.com/user-attachments/assets/d9657915-fb7c-44d2-9a7f-c5ffeae6ae0e)
+
    - Mark tasks as "Complete" by simply toggling a switch or checkbox.
 
 5. **Dark Mode:**
 
-   ![Dark Mode](image-6.png)
+  ![image](https://github.com/user-attachments/assets/16c93793-1bdd-4158-be4b-0e919ef83b06)
+
 
    - Toggle between light and dark modes by clicking the sun icon for a comfortable viewing experience.
 
 6. **Responsive Design:**
 
-   ![Responsive Design](image-7.png)
+  ![image](https://github.com/user-attachments/assets/10b2527e-23a0-4732-916f-8a3045f064e0)
+
 
    - Fully responsive design ensures optimal viewing and functionality across various devices (desktops, tablets, and mobile phones).
 
@@ -77,24 +83,33 @@ Before you start, ensure you have the following installed:
 ```bash
   npm run dev
 
-
-Key improvements:
-
-* **Clearer structure and headings:** Improved readability and organization.
-* **Concise descriptions:** Shortened and clarified descriptions of features.
-* **Consistent formatting:**  Consistent use of bolding and lists.
-* **Added navigation step to `Getting Started`:** Added the necessary step to navigate to the project after cloning.
-* **Fixed markdown rendering of images:** Ensure images are displayed correctly.
-* **Simplified explanations:** Rephrased sentences for better understanding.
-* **Markdown emphasis:** Using markdown for proper formatting.
-* **Corrected the emoji spacing**.
-* **Simplified wording for clarity.**
-* **Added links to Node.js**
-* **Removed redundant image references.**
-* **Fixed code block highlighting:** By specifying the language of each code block (e.g., `bash`), you'll get proper syntax highlighting.
-* **Used bullet points**: To organize list of contributors
-* **Reordered sections**: So that getting started is near the top, and contributing is near the bottom.
-* **Clarified the installation instructions.**  This helps new users get up and running faster.
-
-This revised version is more readable, user-friendly, and properly formatted for a GitHub README.
 ```
+
+## Built With
+
+This section highlights the key frameworks and libraries that form the foundation of your project. Below are some notable examples:
+
+- ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white) **TypeScript**: A superset of JavaScript that adds static types.
+- ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) **JavaScript**: The programming language of modern web development.
+- ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white) **MongoDB**: The database for modern applications.
+- ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white) **Vercel**: Cloud platform for serverless deployment and hosting.
+- ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=eslint&logoColor=white) **ESLint**: Pluggable linting utility for identifying and fixing code issues.
+- ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=prettier&logoColor=black) **Prettier**: Opinionated code formatter to ensure consistent code styling.
+
+## Contributing 🌟
+
+### Making Contributions
+
+We welcome and appreciate contributions from the community ❤️! Here's how you can contribute:
+
+- **Open Issues:** Check for open issues or create a new one to start discussions.
+- **Fork the Repository:** Fork the project to your own GitHub account.
+- **Create Pull Request:** Make changes in your fork and submit a pull request.
+
+### Welcome Contributors!
+
+🚀 Thank you for considering contributing to this project! Your involvement makes this template even better. Feel free to explore the code, share your ideas, and make improvements ✌️.
+
+🌟 Don't hesitate to reach out if you have any questions or need assistance. Together, let's make this project amazing! 🟢
+
+

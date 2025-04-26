@@ -20,7 +20,8 @@ This is a task management website built with React, designed for efficient task 
 
    - **Add Task:** Easily create new tasks with details like name, description, date, and time.
    - **Edit Task:** Modify existing tasks by clicking on them and updating their properties.
-     ![Edit Task](image-4.png)
+     ![image](https://github.com/user-attachments/assets/53b2c0bc-4f5c-456e-9566-89e868f6324e)
+
    - **Delete Task:** Remove tasks by clicking the trash can icon and confirming the deletion.
      ![Delete Task](image-5.png)
 

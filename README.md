@@ -8,7 +8,8 @@ This is a task management website built with React, designed for efficient task 
 
    - Centralized task state management for easy access and updates across components.
 
-   ![All Tasks](image-1.png)
+   ![image](https://github.com/user-attachments/assets/5351118c-03a4-4392-a55c-46fa5cc489df)
+
 
    - Change task status to "Complete" and automatically update the completion date.
 

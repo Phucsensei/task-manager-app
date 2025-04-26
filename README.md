@@ -31,7 +31,7 @@ This is a task management website built with React, designed for efficient task 
    ![image](https://github.com/user-attachments/assets/c2d9243e-8a3e-4bcf-95f5-c98594c10c36)
 
 
-   - Quickly filter tasks by their status (e.g., "To Do," "In Progress," "Complete") for efficient management.
+   - Quickly filter tasks by their status (All tasks, Completed, Pending) for efficient management.
 
 4. **Task Status Toggle:**
 
@@ -91,7 +91,6 @@ This section highlights the key frameworks and libraries that form the foundatio
 
 - ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white) **TypeScript**: A superset of JavaScript that adds static types.
 - ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) **JavaScript**: The programming language of modern web development.
-- ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white) **MongoDB**: The database for modern applications.
 - ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white) **Vercel**: Cloud platform for serverless deployment and hosting.
 - ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=eslint&logoColor=white) **ESLint**: Pluggable linting utility for identifying and fixing code issues.
 - ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=prettier&logoColor=black) **Prettier**: Opinionated code formatter to ensure consistent code styling.
